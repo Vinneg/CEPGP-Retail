@@ -1003,7 +1003,7 @@ function CEPGP_getEPGP(name, index)
 	if not index then return 0, BASEGP; end
 	_, _, _, _, _, _, _, offNote = GetGuildRosterInfo(index);
 	
-	local EP, GP = string.match(offNote,'cep{([%d+%.]+),([%d+%.]+)}');
+	local EP, GP = string.match(offNote,'cep{(-?%d+%.?%d*),(-?%d+%.?%d*)}');
 
 	if EP and GP then
 		return tonumber(EP) or 0, tonumber(GP) or BASEGP;
