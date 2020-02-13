@@ -1019,9 +1019,7 @@ end
 function CEPGP_checkEPGP(note)
 	if not note then return false; end
 
-	if string.match then
-		return true;
-	elseif string.find(note, '[^0-9,-]') or #note == 0 then
+	if string.find(note, '[^0-9,-]') or #note == 0 then
 		return false;
 	end
 	if string.find(note, '^[0-9]+,[0-9]+$') then --EPGP is positive
