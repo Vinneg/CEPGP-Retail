@@ -1003,9 +1003,11 @@ function CEPGP_getEPGP(name, index)
 	if not index then return 0, BASEGP; end
 	_, _, _, _, _, _, _, offNote = GetGuildRosterInfo(index);
 	
-	local EP, GP = nil;
-	
-	if not CEPGP_checkEPGP(offNote) then
+	local EP, GP = string.match(offNote,'cep{(-?%d+%.?%d*),(-?%d+%.?%d*)}');
+
+	if EP and GP then
+		return tonumber(EP) or 0, tonumber(GP) or BASEGP;
+	elseif not CEPGP_checkEPGP(offNote) then
 		return 0, BASEGP;
 	else
 		EP = tonumber(strsub(offNote, 1, strfind(offNote, ",")-1));
@@ -1016,7 +1018,7 @@ end
 
 function CEPGP_checkEPGP(note)
 	if not note then return false; end
-	
+
 	if string.find(note, '[^0-9,-]') or #note == 0 then
 		return false;
 	end
@@ -1031,6 +1033,20 @@ function CEPGP_checkEPGP(note)
 	else
 		return false;
 	end
+end
+
+function CEPGP_setEPGP(index, EP, GP)
+	local offNote = select(8, GetGuildRosterInfo(index));
+
+	local newEPGP = 'cep{' .. (tonumber(EP) or 0) .. ',' .. (tonumber(GP) or BASEGP) .. '}';
+
+	local newOffNote = string.gsub(offNote, 'cep{[^}]*}', newEPGP);
+
+	if offNote == newOffNote then
+		newOffNote = newEPGP;
+	end
+
+	GuildRosterSetOfficerNote(index, newOffNote);
 end
 
 function CEPGP_getItemString(link)
@@ -2059,8 +2075,9 @@ function CEPGP_saveStandings(name)
 		RECORDS[name] = {};
 		SortGuildRoster(name);
 		for i = 1, GetNumGuildMembers(), 1 do
-			local _, _, _, _, _, _, _, oNote = GetGuildRosterInfo(i);
-			RECORDS[name][GetGuildRosterInfo(i)] = oNote;
+			local unitName = GetGuildRosterInfo(i);
+
+			RECORDS[name][unitName] = {CEPGP_getEPGP(nil, i)};
 		end
 		if CEPGP_overwritelog then
 			CEPGP_print("Record overwritten [" .. name .. "]");
@@ -2147,7 +2164,7 @@ function CEPGP_importStandings()
 					GP = frags[i+2];
 					index = CEPGP_getIndex(name);
 					output:SetText(output:GetText() .. "\nProcessing record: " .. name);
-					GuildRosterSetOfficerNote(index, EP .. "," .. GP);
+					CEPGP_setEPGP(index, EP, GP);
 					CEPGP_import_progress_scrollframe:SetVerticalScroll(CEPGP_import_progress_scrollframe:GetVerticalScroll()+12);
 				end
 			end

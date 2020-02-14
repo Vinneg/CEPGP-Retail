@@ -1295,7 +1295,7 @@
 												local name, rank, rankIndex, _, class = GetGuildRosterInfo(i);
 												local EP, GP = CEPGP_getEPGP(name, i);
 												if BASEGP > GP then
-													GuildRosterSetOfficerNote(i, EP .. "," .. BASEGP);
+													CEPGP_setEPGP(i, EP, BASEGP);
 												end
 											end
 										end
@@ -5045,10 +5045,14 @@
 								local i = 0;
 								C_Timer.NewTicker(0.0001, function()
 									i = i + 1;
-									if RECORDS[name][GetGuildRosterInfo(i)] == nil then
-										GuildRosterSetOfficerNote(i, "0,"..BASEGP);
+
+									local unitName = GetGuildRosterInfo(i);
+
+									if RECORDS[name][unitName] == nil then
+										CEPGP_setEPGP(i, 0, BASEGP);
 									else
-										GuildRosterSetOfficerNote(i, RECORDS[name][GetGuildRosterInfo(i)]);
+										local oldEP, oldGP = unpack(RECORDS[name][unitName]);
+										CEPGP_setEPGP(i, oldEP, oldGP);
 									end
 									if i == GetNumGuildMembers() then
 										update();
