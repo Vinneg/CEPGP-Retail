@@ -123,7 +123,7 @@ local L = CEPGP_Locale:GetLocale("CEPGP")
 --[[ EVENT AND COMMAND HANDLER ]]--
 function CEPGP_OnEvent(event, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15, arg16, arg17)
 	
-	if event == "ADDON_LOADED" and arg1 == "CEPGP" then --arg1 = addon name
+	if event == "ADDON_LOADED" and arg1 == "iEPGP" then --arg1 = addon name
 		--	Translating from old structure to new
 		CEPGP = {
 			Attendance = CEPGP_raid_logs,
