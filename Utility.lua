@@ -1040,9 +1040,9 @@ function CEPGP_setEPGP(index, EP, GP)
 
 	local newEPGP = 'cep{' .. (tonumber(EP) or 0) .. ',' .. (tonumber(GP) or BASEGP) .. '}';
 
-	local newOffNote = string.gsub(offNote, 'cep{[^}]*}', newEPGP);
+	local newOffNote, subs = string.gsub(offNote, 'cep{[^}]*}', newEPGP);
 
-	if offNote == newOffNote then
+	if subs == 0 then
 		newOffNote = newEPGP;
 	end
 
