@@ -5998,7 +5998,7 @@
 				<Scripts>
 					<OnClick>
 						PlaySound(799);
-						DisableAddOn("CEPGP");
+						DisableAddOn("iEPGP");
 						ReloadUI();
 					</OnClick>
 				</Scripts>
