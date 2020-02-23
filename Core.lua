@@ -246,17 +246,19 @@ function CEPGP_OnEvent(event, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, ar
 	
 	if CEPGP_use then --EPGP and loot distribution related 
 		--	An encounter has been defeated
-		local function handleEncounter(event, arg2, arg5)
+		local function handleEncounter(event, arg1, arg5)
 			if event == "ENCOUNTER_END" and arg5 == 1 then
-				local bossName = L[arg2];
+				local bossName = encounterIndex[arg1];
+                local localBossName = L[bossName];
+
 				if bossNameIndex[bossName] and AUTOEP[bossName] and tonumber(EPVALS[bossName]) > 0 then
-					CEPGP_handleCombat(arg2);
+					CEPGP_handleCombat(localBossName);
 				end
 				return;
 			end
 		end
 		
-		local success, failMsg = pcall(handleEncounter, event, arg2, arg5);
+		local success, failMsg = pcall(handleEncounter, event, arg1, arg5);
 		
 		if not success then
 			CEPGP_print("Failed to award GP for encounter!", true);

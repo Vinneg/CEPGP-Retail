@@ -86,3 +86,29 @@ bossNameIndex = {
     ["Ysondre"] = 7,
     ["Taerar"] = 7
 }
+
+encounterIndex = {
+    [662] = "Onyxia",
+
+    -- molten core --
+    [663] = "Lucifron",
+    [664] = "Magmadar",
+    [665] = "Gehennas",
+    [666] = "Garr",
+    [668] = "Baron Geddon",
+    [667] = "Shazzrah",
+    [669] = "Sulfuron Harbinger",
+    [670] = "Golemagg the Incinerator",
+    [671] = "Majordomo Executus",
+    [672] = "Ragnaros",
+
+    -- blackwing lair --
+    [610] = "Razorgore the Untamed",
+    [611] = "Vaelastrasz the Corrupt",
+    [613] = "Broodlord Lashlayer",
+    [614] = "Firemaw",
+    [615] = "Ebonroc",
+    [616] = "Flamegor",
+    [617] = "Chromaggus",
+    [618] = "Nefarian",
+}
