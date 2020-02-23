@@ -105,10 +105,10 @@ encounterIndex = {
     -- blackwing lair --
     [610] = "Razorgore the Untamed",
     [611] = "Vaelastrasz the Corrupt",
-    [613] = "Broodlord Lashlayer",
-    [614] = "Firemaw",
-    [615] = "Ebonroc",
-    [616] = "Flamegor",
-    [617] = "Chromaggus",
-    [618] = "Nefarian",
+    [612] = "Broodlord Lashlayer",
+    [613] = "Firemaw",
+    [614] = "Ebonroc",
+    [615] = "Flamegor",
+    [616] = "Chromaggus",
+    [617] = "Nefarian",
 }
