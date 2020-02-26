@@ -88,7 +88,7 @@ bossNameIndex = {
 }
 
 encounterIndex = {
-    [662] = "Onyxia",
+    [1084] = "Onyxia",
 
     -- molten core --
     [663] = "Lucifron",
