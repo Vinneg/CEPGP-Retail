@@ -2639,11 +2639,11 @@ function CEPGP_syncAltStandings(main)
 			local mEP,mGP = CEPGP_getEPGP(main, CEPGP_getIndex(main));	-- Standings of main
 			local EP,GP = CEPGP_getEPGP(alt, index);	-- Standings of alt
 			if CEPGP.Alt.SyncEP and CEPGP.Alt.SyncGP then
-				GuildRosterSetOfficerNote(index, mEP .. "," .. mGP);
+				CEPGP_setEPGP(index, mEP, mGP);
 			elseif CEPGP.Alt.SyncEP then
-				GuildRosterSetOfficerNote(index, mEP .. "," .. GP);
+				CEPGP_setEPGP(index, mEP, GP);
 			elseif CEPGP.Alt.SyncGP then
-				GuildRosterSetOfficerNote(index, EP .. "," .. mGP);
+				CEPGP_setEPGP(index, EP, mGP);
 			end
 		end
 	end
@@ -2662,11 +2662,11 @@ function CEPGP_syncToMain(alt, index, main)
 	local mainEP, mainGP = CEPGP_getEPGP(main, mainIndex);
 
 	if CEPGP.Alt.SyncEP and CEPGP.Alt.SyncGP then
-		GuildRosterSetOfficerNote(mainIndex, altEP .. "," .. altGP);
+		CEPGP_setEPGP(mainIndex, altEP, altGP);
 	elseif CEPGP.Alt.SyncEP then
-		GuildRosterSetOfficerNote(mainIndex, altEP .. "," .. mainGP);
+		CEPGP_setEPGP(mainIndex, altEP, mainGP);
 	elseif CEPGP.Alt.SyncGP then
-		GuildRosterSetOfficerNote(mainIndex, mainEP .. "," .. altGP);
+		CEPGP_setEPGP(mainIndex, mainEP, altGP);
 	end
 
 	C_Timer.After(1, function()
@@ -2688,13 +2688,13 @@ function CEPGP_addAltEPGP(EP, GP, alt, main)
 		altGP = math.max(altGP + GP, CEPGP.GP.Min + math.max(GP, 0));
 
 		if CEPGP.Alt.SyncEP and CEPGP.Alt.SyncGP then
-			GuildRosterSetOfficerNote(index, mainEP .. "," .. mainGP);	--	Both EPGP are being synced
+			CEPGP_setEPGP(index, mainEP, mainGP);	--	Both EPGP are being synced
 		elseif CEPGP.Alt.SyncEP then
-			GuildRosterSetOfficerNote(index, mainEP .. "," .. altGP);	--	Only EP is being synced
+			CEPGP_setEPGP(index, mainEP, altGP);	--	Only EP is being synced
 		elseif CEPGP.Alt.SyncGP then
-			GuildRosterSetOfficerNote(index, altEP .. "," .. mainGP);	--	Only GP is being synced
+			CEPGP_setEPGP(index, altEP, mainGP);	--	Only GP is being synced
 		else
-			GuildRosterSetOfficerNote(index, altEP .. "," .. altGP);	--	Alt standings are not synced with main
+			CEPGP_setEPGP(index, altEP, altGP);	--	Alt standings are not synced with main
 		end
 
 		C_Timer.After(1, function()

@@ -1832,9 +1832,12 @@
 								local i = 0;
 								C_Timer.NewTicker(0.0001, function()
 									i = i + 1;
-									local rankIndex = select(3, GetGuildRosterInfo(i));
+
+									local unitName, _, rankIndex = GetGuildRosterInfo(i);
+
 									if RECORDS[name][GetGuildRosterInfo(i)] and not CEPGP.Exclusions[rankIndex+1] then
-										GuildRosterSetOfficerNote(i, RECORDS[name][GetGuildRosterInfo(i)]);
+										local oldEP, oldGP = unpack(RECORDS[name][unitName]);
+										CEPGP_setEPGP(i, oldEP, oldGP);
 									end
 									if i == GetNumGuildMembers() then
 										update();
